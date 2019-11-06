@@ -1,6 +1,6 @@
 ##############################################################################
 # BASH CHEATSHEET (中文速查表)  -  by skywind (created on 2018/02/14)
-# Version: 46, Last Modified: 2019/02/25 16:53
+# Version: 47, Last Modified: 2019/09/24 17:58
 # https://github.com/skywind3000/awesome-cheatsheets
 ##############################################################################
 
@@ -326,7 +326,7 @@ num=$((1 + (2 + 3) * 2))  # 复杂计算
 !^                  # 上一条命令的第一个单词
 !$                  # 上一条命令的最后一个单词
 !string             # 最近一条包含string的命令
-!^string1^string2   # 最近一条包含string1的命令, 快速替换为string2, 相当于!!:s/string1/string2/
+!^string1^string2   # 最近一条包含string1的命令, 快速替换string1为string2
 !#                  # 本条命令之前所有的输入内容
 
 
