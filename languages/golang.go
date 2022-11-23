@@ -27,6 +27,47 @@ go tool                                             // 运行给定的go工具
 go version                                          // 显示go当前版本
 go vet                                              // 发现代码中可能的错误
 
+/*******************************************************************************
+* ENV
+*******************************************************************************/
+GOOS                                                  // 编译系统
+GOARCH                                                // 编译arch
+GO111MODULE                                           // gomod开关
+GOPROXY                                               // go代理 https://goproxy.io  https://goproxy.cn
+GOSSAFUNC                                             // 生成SSA.html文件，展示代码优化的每一步 GOSSAFUNC=func_name go build
+
+/*******************************************************************************
+ * Module
+ *******************************************************************************/
+go mod init                                           // 初始化当前文件夹，创建go.mod文件
+go mod download                                       // 下载依赖的module到本地
+go mod tidy                                           // 增加缺少的module，删除无用的module
+go mod vendor 					                              // 将依赖复制到vendor下
+文件go.mod                                             // 依赖列表和版本约束
+文件go.sum                                             // 记录module文件hash值，用于安全校验
+
+
+/*******************************************************************************
+ * 基本数据类型
+ *******************************************************************************/
+bool                                                   // 布尔
+string                                                 // 字符串
+int                                                    // 无符号整型(32位操作系统上为int32，64位操作系统上为int64)
+int8                                                   // 8位无符号整型
+int16                                                  // 16位无符号整型
+int32                                                  // 32位无符号整型
+int64                                                  // 64位无符号整型
+uint                                                   // 有符号整型(32位操作系统上为uint32，64位操作系统上为uint64)
+uint8                                                  // 8位有符号整型
+uint16                                                 // 16位有符号整型
+uint32                                                 // 32位有符号整型
+uint64                                                 // 64位有符号整型
+float32                                                // 32位浮点数，精确到小数点后7位
+float64                                                // 64位浮点数，精确到小数点后15位
+complex64                                              // 32位实数和虚数
+complex128                                             // 64位实数和虚数
+byte                                                   // 类型实际是一个uint8，代表了ASCII码的一个字符
+rune                                                   // 类型实际是一个int32，代表一个UTF-8字符
 
 
 /*******************************************************************************
@@ -108,6 +149,11 @@ if i == 10 {
 } else {
     println("i != 10")
 }
+// if with init 
+m := map[int]int{1:1}
+if v, ok := m[1]; ok {
+    println(v)
+}
 // switch
 switch i {
 case 10:
@@ -115,6 +161,8 @@ case 10:
 default:
     println("i != 10")
 }
+// 三目表达式
+注意：Golang没有三目表达式
 
 
 /*******************************************************************************
@@ -204,7 +252,39 @@ func (b Bs) Reading() {}      // 也实现了Reader接口
 func (b Bs) Closing() {}
 
 
+/*******************************************************************************
+ * 泛型（v1.18）
+ ******************************************************************************/
+func Sum[T int | float32 | float64](x, y T) T {
+	return x + y
+}
 
+type Number interface {
+	int | int32 | int64 | float64 | float32
+}
+
+type SliceAdditon[T Number] struct {
+	data []T
+}
+
+func (sa *SliceAdditon[T]) Sum() T {
+	var sum T
+	for _, v := range sa.data {
+		sum += v
+	}
+	return sum
+}
+
+func Caller() {
+	sInt := Sum(1, 2)       // Sum[int]
+	sFloat := Sum(1.1, 2.2) // Sum[float64]
+	println(sInt, sFloat)
+
+	saInt := SliceAdditon[int]{data: []int{1, 2, 3, 4, 5}}
+	saFloat64 := SliceAdditon[float64]{data: []float64{1.1, 2.2, 3.3, 4.4, 5.5}}
+	println(saInt.Sum())
+	println(saFloat64.Sum())
+}
 
 /*******************************************************************************
  * 一些推荐

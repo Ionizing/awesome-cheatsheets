@@ -19,10 +19,12 @@
 ### :page_with_curl:编程语言
 
 - [Bash](languages/bash.sh)
+- [JavaScript](languages/javascript.md)
 - [Go](languages/golang.go)
-- [Php](languages/php.php)
+- [PHP](languages/php.php)
 - [VimScript](languages/vimscript.md)
 - [Python](languages/python.md)
+- [Lua](languages/lua.lua)
 
 ### :wrench:开发工具
 
@@ -30,6 +32,7 @@
 - [Adb](tools/adb.txt)
 - [Tmux](tools/tmux.txt)
 - [Git](tools/git.txt)
+- [FFmpeg](tools/ffmpeg.sh)
 
 ### :pencil:文本编辑
 
